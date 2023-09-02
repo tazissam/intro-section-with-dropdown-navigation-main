@@ -1,0 +1,91 @@
+@use "../util/" as *;
+
+
+.hero {
+    padding-block: var(--spacer-400);
+    .grid {
+        --gap : 2rem;
+
+        @include breakpoint-up(medium) {
+            grid-template-columns: repeat(2,minmax(5rem,1fr));
+            column-gap: 3rem;
+            place-items: flex-end flex-start;
+            align-items: center;
+        }
+
+        @include breakpoint-up(large) {
+            column-gap: 8rem;
+        }
+    }
+
+    &__title {
+        --fs-title: 1.6rem;
+        font-size: clamp(1rem, var(--fs-title) + 2vw, 4.5rem);
+        padding-block-start: var(--spacer-400);
+
+        @include breakpoint-up(medium) {
+            --fs-title: 2.2rem;
+            padding-block-start: var(--spacer-800);
+        }
+
+        @include breakpoint-up(large) {
+            --fs-title: 2.7rem
+        }
+    }
+
+    &__subtitle {
+        text-align: center;
+        font-size: var(--fs-paragraph);
+        line-height: 1.5;
+        @include breakpoint-up(medium) {
+            text-align: left;
+            
+        }
+    }
+ 
+    .btn {
+        font-weight: var(--fw-bold);
+        padding: var(--spacer-400) var(--spacer-500);
+        outline: transparent;
+        width: max-content;
+        justify-self: center;
+      }
+
+
+    &__clients {
+        @include flex($justify: space-between,$align: center);
+        flex-flow: row wrap;
+        gap: var(--spacer-400);
+        width: 100%;
+    }
+
+    @include breakpoint-up(medium) {
+        padding-block: var(--spacer-700);
+        
+        &__picture {
+            grid-area: 1 / 2 / 5
+        }
+
+        .btn {
+            align-self: flex-start;
+        }
+    }
+
+    @include breakpoint-down(small) {
+        .container {
+            --container-max-width : 35em;
+            text-align: center;
+            width: min(100%,var(--container-max-width));
+        }
+
+        &__subtitle ,
+        &__clients{
+            padding-inline: var(--spacer-400);
+        }
+
+        &__clients {
+            padding-block-start: 2rem;
+            justify-content: space-around;
+        }
+    }
+}

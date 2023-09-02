@@ -1,0 +1,429 @@
+@use "../util/" as *;
+
+.header {
+    padding: var(--spacer-400);
+
+    .container {
+        --container-max-width: 70rem;
+        @include flex(space-between, center);
+        gap: var(--gap);
+
+        @include breakpoint-down(small) {
+            --container-max-width: 40rem;
+        }
+    }
+
+    &__logo path {
+        fill: var(--clr-primary);
+    }
+
+    &__nav-toggle {
+        z-index: 10;
+
+        &[aria-expanded="true"] {
+            position: fixed;
+            inset-inline-end: var(--spacer-400);
+        }
+
+        @include breakpoint-up(medium) {
+            display: none;
+        }
+
+        .line {
+            transition: var(--transition);
+        }
+
+        &[aria-expanded="true"] .line-1 {
+            transform: translate(0, -5px) rotate(45deg);
+            transform-origin: top left;
+        }
+
+        &[aria-expanded="true"] .line-2 {
+            opacity: 0;
+        }
+
+        &[aria-expanded="true"] .line-3 {
+            transform: translate(0, 0px) rotate(-45deg);
+            transform-origin: bottom left;
+        }
+    }
+
+
+
+    &__nav,
+    &__links {
+        @include flex(space-between, center)
+    }
+
+    &__nav {
+        margin-inline-start: auto;
+        transform: all var(--transition);
+        width: 90%;
+    }
+
+    &__links {
+        --gap: 2rem;
+        gap: var(--gap);
+
+        @include breakpoint-up(large) {
+            --gap: 3.5rem;
+        }
+    }
+
+    &__item {
+        position: relative;
+    }
+
+    &__link {
+        --gap: .5rem;
+        @include flex($align: center);
+        gap: var(--gap);
+        flex-flow: row nowrap;
+
+        &--dropdown {
+            &-icon {
+                rotate: 0;
+            }
+
+            &[aria-expanded="true"] {
+                color: var(--clr-primary);
+            }
+
+            &[aria-expanded="true"] &-icon {
+                rotate: 180deg;
+            }
+
+            &[aria-expanded="true"]+.header__dropdown-menu {
+                height: min-content;
+                padding-block: var(--spacer-100);
+
+                @include breakpoint-up(medium) {
+                    padding: var(--spacer-400) var(--spacer-500);
+
+                    @media (prefers-color-scheme: dark) {
+                        border: 1px solid var(--clr-neutral-300);
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &__dropdown {
+        &-menu {
+            height: 0;
+            overflow: hidden;
+            &#company-menu {
+                transform: translateX(0);
+            }
+        }
+
+        &-link {
+            display: inline-flex;
+
+            &:has(svg) {
+                --gap: 1rem;
+                display: inline-grid;
+                grid-template-columns: 1rem 1fr;
+                gap: var(--gap);
+                justify-content: flex-start;
+            }
+
+            padding: var(--spacer-200);
+        }
+
+        @include breakpoint-up(medium) {
+            &-menu {
+                background-color: var(--clr-neutral-100);
+                border-radius: 0.625rem;
+                box-shadow: 0rem 0.125rem 1.25rem hsl(0deg 0% 75%);
+                inset-block-start: 2.5rem;
+                inset-inline-end: 0;
+                position: absolute;
+
+                &#company-menu {
+                    transform: translateX(2.5rem);
+                }
+            }
+
+            &-item {
+                width: max-content;
+            }
+        }
+    }
+
+    @include breakpoint-up(medium) {
+        &__buttons {
+            display: inline-flex;
+            align-items: center;
+        }
+
+    }
+
+    @include breakpoint-down(small) {
+
+        &__nav,
+        &__links {
+            flex-flow: column nowrap;
+            align-items: stretch;
+            justify-content: flex-start;
+        }
+
+        &__nav {
+            background: var(--clr-neutral-100);
+            padding: var(--spacer-700) var(--spacer-400);
+            position: fixed;
+            inset: 0 0 auto auto;
+            height: 100dvh;
+            overflow-y: auto;
+            transform: translateX(120%);
+            width: min(100% - 38%, 18.75rem);
+            z-index: 8;
+
+            &.open {
+                transform: translateX(0);
+            }
+
+            a {
+                padding-block: var(--spacer-300);
+                width: 100%;
+            }
+        }
+
+        &__links {
+            gap: 0;
+
+            li {
+                width: 100%;
+            }
+        }
+
+        &__dropdown-menu {
+            padding-inline-start: var(--spacer-400);
+        }
+
+        &__buttons {
+            margin-block-start: var(--spacer-400);
+            width: 100%;
+
+            .btn {
+                display: block;
+            }
+        }
+
+    }
+
+}
+
+@include breakpoint-down(small) {
+    .overlay {
+        transition: all var(--transition);
+    }
+
+    .overlay.visible {
+        background-color: hsl(0deg 0 6% / 40%);
+        inset: 0;
+        min-height: 100dvh;
+        overflow: hidden;
+        pointer-events: none;
+        position: fixed;
+    }
+
+    body:has(.overlay.visible) {
+        overflow: hidden;
+    }
+}
+
+
+
+// .header {
+//     padding: 1rem 2.5rem;
+//     margin: auto;
+//     display: flex;
+//     flex-shrink: 0;
+//     justify-content: space-between;
+//     align-items: center;
+//     &__logo > path{
+//         fill: var(--clr-primary);
+//     }
+// }
+
+// .navbar {
+//     display: flex;
+//     justify-content: space-between;
+//     flex: 1;
+//     align-items: center;
+//     gap: auto;
+//     background: transparent;
+
+//     &__items {
+//         padding-inline: 3.38rem;
+//         display: flex;
+//         column-gap: 2.5rem;
+//         row-gap: 1rem;
+
+//         &__item {
+//             position: relative;
+
+//             &:has(.active) svg{
+//                 rotate: 180deg;
+//             }
+//             &__link {
+//                 color: var(--clr-primary);
+
+//                 &:has(svg) {
+//                     display: flex;
+//                     align-items: center;
+//                     gap: 0.4rem;
+//                 }
+//             }
+
+//             #dropdown {
+//                 &1 {
+//                     left: -50%;
+//                 }
+//             }
+
+//             .dropdown {
+//                 background: var(--clr-neutral-100);
+//                 border-radius: 1rem;
+//                 padding: 2rem;
+//                 box-shadow: 0 4px 20px 0.5px rgba(0, 0, 0, 0.05);
+//                 min-width: max-content;
+//                 position: absolute;
+//                 margin-top: 1rem;
+//                 z-index: 1;
+//                 display: none;
+//                 visibility: hidden;
+//                 opacity: 0;
+//                 transform: scale(0.97) translateX(-5px);
+//                 transition: 0.1s ease-in-out;
+//                 color: var(--clr-primary);
+//                 &.active {
+//                     display: block;
+//                     visibility: visible;
+//                     opacity: 1;
+//                     transform: scale(1) translateX(5px);
+//                 }
+
+//                 &__item {
+//                     &:not(:last-child) {
+//                         margin-bottom: 1rem;
+//                     }
+
+//                     &__link {
+//                         color: var(--clr-primary);
+
+//                         &:has(svg) {
+//                             display: flex;
+//                             flex: 1 1;
+//                             align-items: center;
+//                             gap: 1rem;
+
+//                             svg {
+//                                 flex-shrink: 1;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+
+//     &__cta {
+//         display: flex;
+//         justify-content: space-between;
+//         gap: 2.75rem;
+
+//         .btn {
+//             padding: 1rem;
+//             color: var(--clr-neutral-300);
+//             .hover {
+//                 border: 1px solid var(--clr-neutral-300);
+
+//             }
+//         }
+//     }
+
+//     &__menu {
+//         display: none;
+//     }
+// }
+
+// @media screen and (width < 1024px) {
+//     .header {
+//         position: relative;
+//         background: var(--clr-neutral-200);
+//         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//         z-index: 99;
+//     }
+
+//     .navbar {
+//         justify-content: flex-end;
+
+//         &__items,
+//         &__cta {
+//             display: none;
+//         }
+
+//         &__menu {
+//             display: block;
+//             margin-left: auto;
+//             cursor: pointer;
+
+//         }
+
+//         &__items {
+//             &.active {
+//                 display: block;
+//             }
+
+//             flex-direction: column;
+//             padding: var(--spacer-700) var(--spacer-400);
+//             position: fixed;
+//             inset: 0 0 auto auto;
+//             height: 100dvh;
+//             width: 40%;
+//             background-color: var(--clr-neutral-100);
+//             transition: transform 0.3s ease-in-out;
+//             transform: translateY(0%);
+//             z-index: -1;
+//             row-gap: .5rem;
+
+//             &__item {
+//                 padding: 1rem;
+
+//                 &__link {
+//                     justify-content: space-between;
+
+//                     svg {
+//                         scale: 1.4;
+//                     }
+//                 }
+
+//                 #dropdown1 {
+//                     left: 0;
+//                 }
+
+//                 &:has(.active) {
+//                     margin-bottom: 0;
+//                     padding-bottom: 0;
+//                     gap: 0;
+//                 }
+
+//                 .dropdown {
+//                     position: relative;
+//                     left: 0;
+
+//                     padding: 1rem {
+//                         bottom: 0;
+//                     }
+
+//                     ;
+//                     margin: 0;
+//                     box-shadow: none;
+//                 }
+//             }
+//         }
+//     }
+// }

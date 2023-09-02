@@ -1,0 +1,121 @@
+@use "../util/" as *;
+
+html {
+    color-scheme: light dark;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body {
+    background-color: var(--clr-neutral-100);
+    font-family: var(--ff-family);
+    font-size: var(--fs-body);
+    transition: var(--transition);
+}
+
+img,
+path {
+    width: 100%;
+    height: auto;
+}
+
+p,
+a {
+    color: var(--clr-neutral-300);
+}
+
+
+h1,
+h2,
+h3 {
+    color: var(--clr-primary);
+}
+
+:is(a, .btn, .btn--theme):focus-visible {
+    outline: 2px dotted var(--clr-primary);
+    outline-offset: 5px;
+}
+
+a {
+    font-size: 1rem;
+    text-decoration: none;
+    transition: var(--transition);
+
+    &.btn {
+        padding: var(--spacer-300) var(--spacer-400);
+    }
+
+    &:is(:hover, :focus-visible) {
+        color: var(--clr-primary);
+    }
+}
+
+button {
+    font: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+picture,
+source,
+img {
+    display: block;
+    max-width: 100%;
+}
+
+svg {
+    display: block;
+    height: 100%;
+    overflow: visible;
+    transition: var(--transition);
+}
+
+%visually-hidden {
+    overflow: hidden;
+    position: absolute;
+    opacity: 0;
+}
+
+.visually-hidden {
+    @extend %visually-hidden;
+    border: 0;
+    clip-path: inset(50%);
+    height: 1px;
+    margin-block-start: -0.0625rem;
+    padding: 0;
+    width: 1px;
+
+    &-focusable {
+        @extend %visually-hidden;
+        inset-block-start: -2rem;
+        transition: none;
+
+        &:focus {
+            inset-block-start: 0;
+            overflow: visible;
+            opacity: 1;
+        }
+    }
+}
+
+.container {
+    --container-max-width: 60em;
+    margin-inline: auto;
+    width: min(100% - 2rem, var(--container-max-width));
+}
+
+.grid {
+    display: grid;
+    grid-auto-columns: 1fr;
+    gap: var(--gap);
+}

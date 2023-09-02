@@ -1,0 +1,339 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap");
+:root {
+  /* Define colors */
+  --almost-white: hsl(0, 0%, 98%);
+  --medium-gray: hsl(0, 0%, 41%);
+  --almost-black: hsl(0, 0%, 8%);
+  /* Define typography */
+  --font-family: "Epilogue", sans-serif;
+  --body-copy-font-size: 18px;
+  /* Define highlight */
+  --font-weight-semi: 500;
+  /* Define spaces */
+  --spacer-100: 0.25rem;
+  --spacer-200: 0.5rem;
+  --spacer-300: 0.75rem;
+  --spacer-400: 1rem;
+  --spacer-500: 1.5rem;
+  --spacer-600: 2rem;
+  --spacer-700: 3rem;
+  --spacer-800: 4rem;
+  --spacer-900: 5rem;
+  /* Define grid */
+  --gap: 1rem;
+  --transition: 300ms linear;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img,
+path {
+  width: 100%;
+  height: auto;
+}
+
+.section {
+  padding-block: 4.5rem 1rem;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--font-weight-semi);
+  color: var(--cls-title);
+  line-height: 1.5;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Use variables in your styles */
+body {
+  font-family: var(--font-family);
+  font-size: var(--body-copy-font-size);
+  color: var(--almost-black);
+  background-color: var(--almost-white);
+}
+
+.grid {
+  display: grid;
+  grid-auto-columns: 1fr;
+  gap: var(--gap);
+}
+
+.header {
+  padding: 1rem 2.5rem;
+  margin: auto;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  align-items: center;
+  gap: auto;
+  background: transparent;
+}
+.navbar__items {
+  padding-inline: 3.38rem;
+  display: flex;
+  -moz-column-gap: 2.5rem;
+       column-gap: 2.5rem;
+  row-gap: 1rem;
+}
+.navbar__items__item {
+  position: relative;
+}
+.navbar__items__item__link {
+  color: var(--almost-black);
+}
+.navbar__items__item__link:has(svg) {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.navbar__items__item #dropdown1 {
+  left: -50%;
+}
+.navbar__items__item .dropdown {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px 0.5px rgba(0, 0, 0, 0.05);
+  min-width: -moz-max-content;
+  min-width: max-content;
+  position: absolute;
+  margin-top: 1rem;
+  z-index: 1;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.97) translateX(-5px);
+  transition: 0.1s ease-in-out;
+}
+.navbar__items__item .dropdown.active {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1) translateX(5px);
+}
+.navbar__items__item .dropdown__item:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.navbar__items__item .dropdown__item__link {
+  color: var(--medium-gray);
+}
+.navbar__items__item .dropdown__item__link:has(svg) {
+  display: flex;
+  flex: 1 1;
+  align-items: center;
+  gap: 1rem;
+}
+.navbar__items__item .dropdown__item__link:has(svg) svg {
+  flex-shrink: 1;
+}
+.navbar__cta {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.75rem;
+}
+.navbar__cta .btn {
+  padding: 1rem;
+  border-radius: 0.875rem;
+  color: var(--almost-black);
+}
+.navbar__cta .btn--outline {
+  border: 1px solid var(--almost-black);
+}
+.navbar__menu {
+  display: none;
+}
+
+@media screen and (width < 1024px) {
+  .header {
+    position: relative;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+  }
+  .navbar {
+    justify-content: flex-end;
+  }
+  .navbar__items, .navbar__cta {
+    display: none;
+  }
+  .navbar__menu {
+    display: block;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  .navbar__items {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 0 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(0%);
+    z-index: -1;
+    row-gap: 0.5rem;
+  }
+  .navbar__items.active {
+    display: block;
+  }
+  .navbar__items__item {
+    padding: 1rem;
+  }
+  .navbar__items__item__link {
+    justify-content: space-between;
+  }
+  .navbar__items__item__link svg {
+    scale: 1.4;
+  }
+  .navbar__items__item #dropdown1 {
+    left: 0;
+  }
+  .navbar__items__item:has(.active) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    gap: 0;
+  }
+  .navbar__items__item .dropdown {
+    position: relative;
+    left: 0;
+    padding: 1rem;
+    padding-bottom: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+}
+.container {
+  margin-inline: auto;
+}
+@media screen and (width > 768px) {
+  .container {
+    width: 80%;
+  }
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: space-evenly;
+  container-type: inline-size;
+}
+.hero > article {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.hero__picture {
+  order: -1;
+}
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 1rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.hero__title {
+  font-size: 5.25rem;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--almost-black);
+  margin-right: 1cqi;
+  margin-top: 1.5rem;
+}
+.hero__subtitle {
+  font-size: 1.25rem;
+  margin-right: 10rem;
+  color: var(--medium-gray);
+  line-height: 1.6;
+}
+.hero__button {
+  display: inline-block;
+  color: #fff;
+  padding: 1.375rem 2rem;
+  background: var(--almost-black);
+  border-radius: 1rem;
+  align-self: center;
+  margin-bottom: 1rem;
+}
+.hero__button:hover {
+  color: var(--almost-black);
+  box-shadow: inset 0 0 0 1px var(--almost-black);
+  background-color: transparent;
+}
+.hero__audios {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+.hero__subtitle {
+  margin-right: 0;
+}
+@media screen and (width >= 768px) {
+  .hero {
+    text-align: left;
+    gap: 10rem;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .hero > article {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  .hero__picture {
+    flex-shrink: 1;
+    order: 1;
+  }
+  .hero__title {
+    margin-top: 0;
+  }
+  .hero__button {
+    align-self: flex-start;
+  }
+  .hero__copy {
+    margin-top: 0cqb;
+  }
+}
+@media screen and (width >= 992px) {
+  .hero__copy {
+    gap: 3rem;
+  }
+  .hero__title {
+    margin-top: 8cqb;
+  }
+  .hero__subtitle {
+    margin-right: 3rem;
+  }
+}
