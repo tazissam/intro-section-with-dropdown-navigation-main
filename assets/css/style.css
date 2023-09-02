@@ -472,6 +472,7 @@ svg {
     grid-area: 1/2/5;
   }
   .hero .btn {
+    justify-self: flex-start;
     align-self: flex-start;
   }
 }
